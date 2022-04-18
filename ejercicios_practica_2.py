@@ -27,7 +27,21 @@ def ej3():
     # para cumplir con el enunciado del ejercicio
 
     # Comenzar aquí, recuerde el identado dentro de esta funcion
-    
+    stock_tornillos = 0
+    try:
+        archivo_stock = open("stock.csv","r")
+    except:
+        print("no existe el archivo al que intenta acceder, por favor verifique")
+
+    stock_total = list(csv.DictReader(archivo_stock))
+    for productos in stock_total:
+        for k, v in productos.items():
+            if k == "tornillos":
+                stock_tornillos += int(v)
+    print("El stock de tornillos total es:",stock_tornillos)
+
+    archivo_stock.close()
+
 
 
 def ej4():
@@ -47,6 +61,28 @@ def ej4():
     # utilizando "try except", tema que se verá la clase que viene.
 
     # Comenzar aquí, recuerde el identado dentro de esta funcion
+    try:
+        with open("propiedades.csv","r") as archivo_propiedades:
+            base_propiedades = list(csv.DictReader(archivo_propiedades))
+    except:
+        print( "No existe el archivo al que intenta acceder, por favor verifique")
+    
+    contar_2amb = 0
+    contar_3amb = 0
+    for datos in base_propiedades:
+        for k, v in datos.items():
+            if k == "ambientes":
+                try:
+                    v = int(v)
+                    if v == 2:
+                        contar_2amb = contar_2amb + 1
+                    elif v == 3:
+                        contar_3amb = contar_3amb + 1
+                except:
+                    print("Valor invalido ({}) en fila {}".format(datos.get("ambientes"), datos.get("")))
+    print("La cantidad de depto de 2 amb es:", contar_2amb)
+    print("La cantidad de depto de 3 amb es:", contar_3amb)
+
 
 
 if __name__ == '__main__':
